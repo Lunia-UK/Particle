@@ -22,3 +22,15 @@ for( let i=0; i<50; i++){
 camera.position.z = 100
 
 renderer.render(scene, camera)
+
+document.addEventListener('mousemove', onMouseMove, false)
+
+function onMouseMove(event){
+    let mouseX = event.clientX - window.innerWidth/2
+    let mouseY = event.clientY - window.innerHeight/2
+    camera.position.x += (mouseX - camera.position.x) * 0.5
+    camera.position.y += (mouseY - camera.position.y) * 0.5
+    camera.position.z = distance
+    camera.lookAt(scene.position)
+    renderer.render(scene, camera)
+}
