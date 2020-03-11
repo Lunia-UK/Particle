@@ -7,6 +7,7 @@ let scene = new THREE.Scene()
 let camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,1,10000)
 scene.add(camera)
 let distance = 1000
+var points = [];
 
 for( let i=0; i<50; i++){
     let geometry = new THREE.SphereGeometry( 5, 32, 32 );
@@ -16,10 +17,21 @@ for( let i=0; i<50; i++){
     particule.position.y = Math.random() * distance * 2 - distance
     particule.position.z = Math.random() * distance * 2 - distance
     particule.scale.x = particule.scale.y = Math.random() * 10 + 5
+
+    points.push( new THREE.Vector3( particule.position ) );
     scene.add( particule );
 }
 
-camera.position.z = 100
+var geometryLine = new THREE.BufferGeometry().setFromPoints( points );
+
+let line = new THREE.Line (geometryLine, new THREE.LineBasicMaterial
+    ({
+        color: 0xffffff,
+        opacity: 0.05
+    }))
+scene.add(line)
+
+camera.position.z = 150
 
 renderer.render(scene, camera)
 
